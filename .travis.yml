@@ -28,9 +28,10 @@ script:
     - mkdir build 
     - cd build 
     - cmake -DFETCH_BOOST=TRUE -DNO_RTM=TRUE .. 
-    - travis_wait 45 make 
+    - travis_wait 45 build-wrapper-linux-x86-64 --out-dir ../bw-output make 
     - travis_wait make install
     - travis_wait make test VERBOSE=1
+    - sonar-scanner -Dsonar.cfamily.build-wrapper-output=bw-output -Dsonar.sources=src
 
 after_success: 
     - cd $TRAVIS_BUILD_DIR
